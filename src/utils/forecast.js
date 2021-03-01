@@ -12,7 +12,7 @@
 // })
 const request = require('postman-request')
 
-const forecast = (lon, lat, callback) => {
+const currentForecast = (lon, lat, callback) => {
     const url = 'http://api.weatherstack.com/current?access_key=5406b60c6be7ef0a0549257641dcd632&query=' + lon +',' + lat + ',&units=f'
 
     request({url, json: true}, (error, {body}) =>{
@@ -21,7 +21,8 @@ const forecast = (lon, lat, callback) => {
         } else if(body.error){
             callback('Unable to find location', undefined)
         } else{
-            callback(undefined, body.current.weather_descriptions[0] + `. It is currently ${body.current.temperature} degrees out. It feels like ${body.current.feelslike}. With a humidity of ${body.current.humidity}%, There is a ${body.current.precip}% chance of rain.`)
+            // callback(undefined, body.current.weather_descriptions[0] + `. It is currently ${body.current.temperature} degrees out. It feels like ${body.current.feelslike}. With a humidity of ${body.current.humidity}%, there is a ${body.current.precip}% chance of rain.`)
+                callback(undefined, body)
         }
     })
 
@@ -36,4 +37,4 @@ const forecast = (lon, lat, callback) => {
 
 
 
-module.exports = forecast
+module.exports = currentForecast

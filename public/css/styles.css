@@ -1,6 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital@1&display=swap');
+
+
+
+
+
 body {
     color: #333333;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Poppins', Helvetica, sans-serif;
     max-width: 650px;
     margin: 0 auto;
     padding: 0 16px;
@@ -35,10 +41,12 @@ header a {
 
 .portrait{
     width: 250px;
+    border-radius: 95%;
 }
 
 .main-content {
     flex-grow: 1;
+    font-size: large;
 }
 
 input {
@@ -53,4 +61,21 @@ button {
     color: white;
     padding: 8px;
     border-radius: 5px;
+}
+
+section img {
+    border-radius: 50%;
+}
+
+#current {
+    background: rgba(106, 90, 205, 50%);
+    border: 5px solid ghostwhite;
+    color: cornsilk;
+    padding: 20px;
+    font-size: x-large;    
+    display: none;
+}
+
+ a {
+    text-decoration: none;
 }

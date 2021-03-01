@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather</title>
+    <title>H&N Weather</title>
     <link rel="icon" href="/images/weather.png">
     <link rel="stylesheet" href="/css/styles.css">
     
@@ -13,16 +13,23 @@
     <div class="main-content">
         {{>header}}
 
-        <p>Forecast for {{name}}</p>
+        <p>Forecast for you</p>
 
         <form>
-            <input type="text" placeholder="Location">
+            <input type="text" placeholder="Closest Major City">
             <button>Search</button>
         </form>
+        <br>
+        <br>
 
-        <p id="message-1"></p>
-        <p id="message-2"></p>
+        <section id="current">
+            <div class="image-display"></div> 
 
+            <p id="message-1"></p>
+            <p id="message-2"></p>
+        </section>
+
+        
     </div>
     
 

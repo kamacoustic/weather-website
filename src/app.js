@@ -2,8 +2,9 @@ const path = require('path')
 const express = require('express')
 const { rawListeners } = require('process')
 const hbs = require('hbs')
-const forecast = require('./utils/forecast')
+const currentForecast = require('./utils/forecast')
 const geoCode = require('./utils/geocode')
+const { brotliDecompressSync } = require('zlib')
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -25,15 +26,15 @@ app.use(express.static(publicDirectoryPath))
 
 app.get('', (req, res) => {
     res.render('index', {
-        title: 'Weather App',
-        name: 'Morty Smith'
+        title: 'Here & Now',
+        name: 'The Mojo Works'
     })
 })
 
 app.get('/about', (req, res) => {
     res.render('about', {
-        title: 'My Sanic!',
-        name: 'Amy Rose'
+        title: 'Hello there!',
+        name: 'The Mojo Works'
     })
 })
 
@@ -41,7 +42,7 @@ app.get('/help', (req, res) => {
     res.render('help', {
         hmessage: 'HELP ME! HOW DID I GET HERE?!',
         title: 'Help',
-        name: 'Rick Sanchez'
+        name: 'The Mojo Works'
     })
 })
 
@@ -59,16 +60,19 @@ app.get('/weather', (req, res) => {
                 return res.send({error})
             }
 
-            forecast(latitude, longitude, (error, forecastData) => {
+            currentForecast(latitude, longitude, (error, forecastData) => {
                 if(error){
                     return res.send({error})
                 }
 
                 res.send({
-                    forecast: forecastData,
+                    forecast: forecastData.current.weather_descriptions[0] + `. It is currently ${forecastData.current.temperature} degrees out. It feels like ${forecastData.current.feelslike}. Humidity ${forecastData.current.humidity}%; There is a ${forecastData.current.precip}% chance of rain.`,
                     location,
-                    address: req.query.address
+                    address: req.query.address,
+                    icon: forecastData.current.weather_icons[0],
+                    time: forecastData.current.observation_time
                 })
+                
             })
     })
     
@@ -76,17 +80,6 @@ app.get('/weather', (req, res) => {
     
 
 
-app.get('/products', (req, res) => {
-    if(!req.query.search){
-       return res.send({
-            error: 'Search term must be provided'
-        })
-    }
-
-    res.send({
-        products: []
-    })
-})
 
 app.get('/help/*', (req, res) => {
     res.render('fourohfour', {
