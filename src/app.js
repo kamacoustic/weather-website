@@ -40,7 +40,7 @@ app.get('/about', (req, res) => {
 
 app.get('/help', (req, res) => {
     res.render('help', {
-        hmessage: 'HELP ME! HOW DID I GET HERE?!',
+        hmessage: 'If you receive an error message, please try your location again',
         title: 'Help',
         name: 'The Mojo Works'
     })
